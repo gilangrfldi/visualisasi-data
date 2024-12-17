@@ -15,41 +15,54 @@
         font-family: "Poppins", sans-serif;
         color: #374151;
       }
-      .dashboard-card {
-        background: linear-gradient(145deg, #ffffff, #e2e8f0);
-        box-shadow: 4px 4px 10px #d1d5db, -4px -4px 10px #ffffff;
-        border-radius: 10px;
-        padding: 1.5rem;
-      }
-      h1,
-      h2 {
+
+      h1, h2 {
         color: #1f2937;
         font-weight: 700;
       }
-      .chart-container {
-        margin: 2rem 0;
+
+      /* Table styles */
+      .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 0 -1rem;
+        padding: 0 1rem;
       }
-      .stats-card {
-        background: #1f2937;
-        color: #f9fafb;
-        border-radius: 8px;
-        padding: 1rem;
-        text-align: center;
+
+      table {
+        width: 100%;
+        min-width: 600px;
+        border-collapse: collapse;
       }
-      .stats-card h3 {
-        font-size: 1.25rem;
+
+      th, td {
+        padding: 0.75rem;
+        text-align: left;
+        border-bottom: 1px solid #e5e7eb;
+        white-space: nowrap;
+      }
+
+      th {
+        background-color: #f3f4f6;
         font-weight: 600;
       }
-      .stats-card p {
-        font-size: 1rem;
+
+      tr:nth-child(even) {
+        background-color: #f9fafb;
       }
-      .radar-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 350px;
+
+      @media (max-width: 640px) {
+        .table-container {
+          margin: 0 -1rem;
+        }
+        
+        th, td {
+          padding: 0.5rem;
+          font-size: 0.875rem;
+        }
       }
-      /* Tambahan style untuk profil */
+
+      /* Modal styles */
       .profile-icon {
         position: fixed;
         top: 1rem;
@@ -61,9 +74,11 @@
         padding: 0.75rem;
         transition: all 0.3s ease;
       }
+
       .profile-icon:hover {
         transform: scale(1.1);
       }
+
       .modal {
         display: none;
         position: fixed;
@@ -74,6 +89,7 @@
         background-color: rgba(0, 0, 0, 0.5);
         z-index: 100;
       }
+
       .modal-content {
         background-color: white;
         margin: 10% auto;
@@ -83,6 +99,7 @@
         position: relative;
         box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
       }
+
       .close {
         position: absolute;
         right: 1.5rem;
@@ -92,16 +109,19 @@
         color: #6B7280;
         transition: all 0.3s ease;
       }
+
       .close:hover {
         color: #1D4ED8;
         transform: rotate(90deg);
       }
+
       .profile-header {
         text-align: center;
         margin-bottom: 2rem;
         padding-bottom: 1.5rem;
         border-bottom: 2px solid #E5E7EB;
       }
+
       .profile-icon-large {
         width: 80px;
         height: 80px;
@@ -112,11 +132,13 @@
         align-items: center;
         justify-content: center;
       }
+
       .profile-info {
         background-color: #F3F4F6;
         padding: 1.5rem;
         border-radius: 0.75rem;
       }
+
       .info-item {
         display: flex;
         align-items: center;
@@ -124,14 +146,17 @@
         border-bottom: 1px solid #E5E7EB;
         transition: all 0.3s ease;
       }
+
       .info-item:last-child {
         border-bottom: none;
       }
+
       .info-item:hover {
         background-color: #ffffff;
         border-radius: 0.5rem;
         transform: translateX(5px);
       }
+
       .info-icon {
         min-width: 2.5rem;
         height: 2.5rem;
@@ -152,7 +177,7 @@
       </svg>
     </div>
 
-    <!-- Modal Info Pembuat -->
+    <!-- Modal Info -->
     <div id="profileModal" class="modal">
       <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>
@@ -228,124 +253,123 @@
       <!-- Title -->
       <h1 class="text-4xl text-center mb-10">Visualisasi Data Mahasiswa</h1>
       
-      <!-- Individual Analysis & Class Statistics -->
-      <div class="grid grid-cols gap-6 mt-6">
-        <div class="rounded-lg bg-gray-100 p-6 shadow-md">
-          <h2 class="text-2xl mb-4">Tabel Nilai Mahasiswa</h2>
-          <div class="overflow-x-auto">
-            <table class="min-w-full table-auto">
-              <thead>
-                <tr class="bg-gray-100">
-                  <th class="px-4 py-2">NIM</th>
-                  <th class="px-4 py-2">Quiz</th>
-                  <th class="px-4 py-2">Tugas</th>
-                  <th class="px-4 py-2">UTS</th>
-                  <th class="px-4 py-2">UAS</th>
-                  <th class="px-4 py-2">Nilai Akhir</th>
-                </tr>
-              </thead>
-              <tbody id="studentTable">
-              </tbody>
-            </table>
-          </div>
-          <hr class="border-b-2 py-4">
-          <div>
-            <div class="mt-2 text-gray-700">
-              Berdasarkan Tabel Nilai Mahasiswa, terdapat 10 mahasiswa yang dinilai dari lima komponen:
-              <ul class="list-disc ml-6 mt-2">
-                <li>Quiz: Hasil ujian singkat</li>
-                <li>Tugas: Nilai pekerjaan rumah atau tugas</li>
-                <li>UTS: Nilai ujian tengah semester</li>
-                <li>UAS: Nilai ujian akhir semester</li>
-                <li>Nilai Akhir: Rata-rata keseluruhan nilai</li>
-              </ul>
-              Hasilnya menunjukkan perbedaan yang cukup jelas di antara mahasiswa. Ada yang memiliki nilai tinggi di beberapa komponen, tetapi rendah di komponen lainnya.
-            </div>
+      <!-- tabel data nilai mahasiswa -->
+      <div class="rounded-lg bg-gray-100 p-6 shadow-md">
+        <h2 class="text-2xl mb-4">Tabel Nilai Mahasiswa</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th class="px-4 py-2">NIM</th>
+                <th class="px-4 py-2">Quiz</th>
+                <th class="px-4 py-2">Tugas</th>
+                <th class="px-4 py-2">UTS</th>
+                <th class="px-4 py-2">UAS</th>
+                <th class="px-4 py-2">Nilai Akhir</th>
+              </tr>
+            </thead>
+            <tbody id="studentTable">
+            </tbody>
+          </table>
+        </div>
+        <hr class="border-b-2 py-4">
+        <div>
+          <div class="mt-2 text-gray-700">
+            Berdasarkan Tabel Nilai Mahasiswa, terdapat 10 mahasiswa yang dinilai dari lima komponen:
+            <ul class="list-disc ml-6 mt-2">
+              <li>Quiz: Hasil ujian singkat</li>
+              <li>Tugas: Nilai pekerjaan rumah atau tugas</li>
+              <li>UTS: Nilai ujian tengah semester</li>
+              <li>UAS: Nilai ujian akhir semester</li>
+              <li>Nilai Akhir: Rata-rata keseluruhan nilai</li>
+            </ul>
+            Hasilnya menunjukkan perbedaan yang cukup jelas di antara mahasiswa. Ada yang memiliki nilai tinggi di beberapa komponen, tetapi rendah di komponen lainnya.
           </div>
         </div>
       </div>
     
       
 
-      <!-- Performance Overview & Grade Distribution -->
-        <div class="bg-gray-100 rounded-lg p-6 shadow-md mt-6">
-          <h2 class="text-2xl mb-4">Distribusi Nilai</h2>
-          <div id="barChart"></div>
+      <!-- distribusi nilai  -->
+      <div class="bg-gray-100 rounded-lg p-6 shadow-md mt-6">
+        <h2 class="text-2xl mb-4">Distribusi Nilai</h2>
+        <div id="barChart"></div>
+        <hr class="border-2">
+        <div>
+          <div class="mt-2 text-gray-700">
+            Grafik batang Distribusi Nilai memperlihatkan bagaimana nilai setiap komponen untuk setiap mahasiswa:
+            <ul class="list-disc ml-6 mt-2">
+              <li>Mahasiswa terbaik adalah NIM 613120067, dengan nilai UTS (89) dan UAS (87) yang tinggi, sehingga Nilai Akhirnya 80.5 (kategori B).</li>
+              <li>Mahasiswa dengan nilai terendah adalah NIM 613120059, dengan Nilai Akhir hanya 38.9 (kategori E).</li>
+              <li>Ada beberapa mahasiswa yang nilai komponen tertentu cukup tinggi, tapi rendah di komponen lainnya. Contohnya NIM 613090071, yang tugasnya bagus tapi UAS-nya rendah.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="bg-gray-100 rounded-lg p-6 shadow-md mt-6">
+        <h2 class="text-2xl mb-4">Analisis Mahasiswa Individual</h2>
+        <div class="mb-4">
+          <select id="studentSelect" class="mt-1 block py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            <option value="">Pilih NIM Mahasiswa</option>
+          </select>
+        </div>
+        <div id="radarChart"></div>
+        <hr class="border-2">
+        <div>
+          <div class="mt-2 text-gray-700">
+            Grafik radar Analisis Mahasiswa Individual memberikan gambaran per mahasiswa:
+            <ul class="list-disc ml-6 mt-2">
+              <li>Contoh: Untuk mahasiswa 613091003, nilai tertingginya ada di Quiz, sedangkan nilai UTS-nya paling rendah.</li>
+              <li>Grafik ini memudahkan kita melihat bagian mana yang perlu diperbaiki oleh setiap mahasiswa.</li>
+              <li>Dengan melihat grafik ini, mahasiswa dan pengajar bisa lebih mudah menyusun strategi perbaikan nilai.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- distribusi grade -->
+      <div class="grid grid-cols-1 gap-6 mt-6">
+        <div class="bg-gray-100 rounded-lg p-6 shadow-md">
+          <h2 class="text-2xl mb-4">Distribusi Grade</h2>
+          <div id="pieChart" class="h-96"></div>
           <hr class="border-2">
           <div>
             <div class="mt-2 text-gray-700">
-              Grafik batang Distribusi Nilai memperlihatkan bagaimana nilai setiap komponen untuk setiap mahasiswa:
+              Diagram lingkaran Distribusi Grade menunjukkan sebaran nilai akhir mahasiswa ke dalam kategori:
               <ul class="list-disc ml-6 mt-2">
-                <li>Mahasiswa terbaik adalah NIM 613120067, dengan nilai UTS (89) dan UAS (87) yang tinggi, sehingga Nilai Akhirnya 80.5 (kategori B).</li>
-                <li>Mahasiswa dengan nilai terendah adalah NIM 613120059, dengan Nilai Akhir hanya 38.9 (kategori E).</li>
-                <li>Ada beberapa mahasiswa yang nilai komponen tertentu cukup tinggi, tapi rendah di komponen lainnya. Contohnya NIM 613090071, yang tugasnya bagus tapi UAS-nya rendah.</li>
+                <li>Grade A (85 ke atas): 0%</li>
+                <li>Grade B (70-84): 20% (2 mahasiswa)</li>
+                <li>Grade C (60-69): 10% (1 mahasiswa)</li>
+                <li>Grade D (50-59): 30% (3 mahasiswa)</li>
+                <li>Grade E (<50): 40% (4 mahasiswa)</li>
               </ul>
+              <p class="mt-2">Dari total 10 mahasiswa:</p>
+              <ul class="list-disc ml-6 mt-2">
+                <li>6 mahasiswa lulus (nilai >= 50)</li>
+                <li>4 mahasiswa tidak lulus (nilai < 50)</li>
+              </ul>
+              <p class="mt-2">Berdasarkan ini, 40% mahasiswa perlu perhatian lebih untuk memperbaiki nilainya.</p>
             </div>
           </div>
         </div>
-        <div class="bg-gray-100 rounded-lg p-6 shadow-md mt-6">
-            <h2 class="text-2xl mb-4">Analisis Mahasiswa Individual</h2>
-            <div class="mb-4">
-              <select id="studentSelect" class="mt-1 block py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-                <option value="">Pilih NIM Mahasiswa</option>
-              </select>
-            </div>
-            <div id="radarChart"></div>
-            <hr class="border-2">
-            <div>
-              <div class="mt-2 text-gray-700">
-                Grafik radar Analisis Mahasiswa Individual memberikan gambaran per mahasiswa:
-                <ul class="list-disc ml-6 mt-2">
-                  <li>Contoh: Untuk mahasiswa 613091003, nilai tertingginya ada di Quiz, sedangkan nilai UTS-nya paling rendah.</li>
-                  <li>Grafik ini memudahkan kita melihat bagian mana yang perlu diperbaiki oleh setiap mahasiswa.</li>
-                  <li>Dengan melihat grafik ini, mahasiswa dan pengajar bisa lebih mudah menyusun strategi perbaikan nilai.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <!-- diagram Radarnya -->
-          <div class="grid grid-cols-1 gap-6 mt-6">
-            <div class="bg-gray-100 rounded-lg p-6 shadow-md">
-              <h2 class="text-2xl mb-4">Distribusi Grade</h2>
-              <div id="pieChart" class="h-96"></div>
-              <hr class="border-2">
-              <div>
-                <div class="mt-2 text-gray-700">
-                  Diagram lingkaran Distribusi Grade menunjukkan sebaran nilai akhir mahasiswa ke dalam kategori:
-                  <ul class="list-disc ml-6 mt-2">
-                    <li>Grade A (85 ke atas): 0%</li>
-                    <li>Grade B (70-84): 20% (2 mahasiswa)</li>
-                    <li>Grade C (60-69): 10% (1 mahasiswa)</li>
-                    <li>Grade D (50-59): 30% (3 mahasiswa)</li>
-                    <li>Grade E (<50): 40% (4 mahasiswa)</li>
-                  </ul>
-                  <p class="mt-2">Dari total 10 mahasiswa:</p>
-                  <ul class="list-disc ml-6 mt-2">
-                    <li>6 mahasiswa lulus (nilai >= 50)</li>
-                    <li>4 mahasiswa tidak lulus (nilai < 50)</li>
-                  </ul>
-                  <p class="mt-2">Berdasarkan ini, 40% mahasiswa perlu perhatian lebih untuk memperbaiki nilainya.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-    
-            <!-- diagram Radarnya -->
-          <div class="grid grid-cols-3 gap-2 mt-6">
-              <div class="bg-blue-500 text-white p-3 rounded-lg">
-                  <div class="text-xs sm:text-sm">Total Mahasiswa</div>
-                  <div class="text-xl sm:text-2xl md:text-3xl font-bold">10</div>
-              </div>
-              <div class="bg-green-500 text-white p-3 rounded-lg">
-                  <div class="text-xs sm:text-sm">Jumlah Mahasiswa Lulus</div>
-                  <div class="text-xl sm:text-2xl md:text-3xl font-bold">6</div>
-              </div>
-              <div class="bg-red-500 text-white p-3 rounded-lg">
-                  <div class="text-xs sm:text-sm">Jumlah mahasiswa yang tidak lulus</div>
-                  <div class="text-xl sm:text-2xl md:text-3xl font-bold" id="failingCount"></div>
-              </div>
-          </div>
       </div>
+    
+      <!-- keterangan -->
+      <div class="grid grid-cols-3 gap-2 mt-6">
+        <div class="bg-blue-500 text-white p-3 rounded-lg">
+          <div class="text-xs sm:text-sm">Total Mahasiswa</div>
+          <div class="text-xl sm:text-2xl md:text-3xl font-bold">10</div>
+        </div>
+        <div class="bg-green-500 text-white p-3 rounded-lg">
+          <div class="text-xs sm:text-sm">Jumlah Mahasiswa Lulus</div>
+          <div class="text-xl sm:text-2xl md:text-3xl font-bold">6</div>
+        </div>
+        <div class="bg-red-500 text-white p-3 rounded-lg">
+          <div class="text-xs sm:text-sm">Jumlah mahasiswa yang tidak lulus</div>
+          <div class="text-xl sm:text-2xl md:text-3xl font-bold" id="failingCount"></div>
+        </div>
+      </div>
+    </div>
       
 
 
