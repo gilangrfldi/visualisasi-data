@@ -404,8 +404,11 @@
         ],
         chart: {
           type: "bar",
-          height: 300,
-          stacked: false
+          height: 350,
+          stacked: false,
+          toolbar: {
+            show: true
+          }
         },
         plotOptions: {
           bar: {
@@ -420,9 +423,14 @@
         },
         yaxis: {
           title: { text: "Nilai" },
+          min: 0,
           max: 100,
+          tickAmount: 10,
           labels: {
-            show: false
+            show: true,
+            formatter: function(val) {
+              return val.toFixed(0);
+            }
           }
         },
         dataLabels: {
@@ -433,7 +441,12 @@
           position: "top"
         },
         tooltip: {
-          enabled: false
+          enabled: true,
+          y: {
+            formatter: function(val) {
+              return val.toFixed(1);
+            }
+          }
         }
       });
       barChart.render();
